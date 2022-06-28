@@ -28,17 +28,50 @@ Mostre os valores com uma casa decimail
 
 def calcular_estatisticas(*cidades):
     """Escreva aqui em baixo a sua solução"""
-    print('Valor da Dívida Valor dos Juros Quantidade de Parcelas  Valor da Parcela')
-    print(f'''R$ {"%.2f" %valor_inicial}      0%              1                       R$   {"%.2f" %valor_inicial}''')
-    juros = 0.10
-    parcelas = 3
-    for i in range(4):
-        novo_valor = valor_inicial + valor_inicial*juros
-        nova_parcela = novo_valor/parcelas
-        # if apenas para questão de espaçamento nos testes:
-        if parcelas < 10:
-            print(f'''R$ {"%.2f" %novo_valor}      {"%.0f" %(juros*100)}%             {parcelas}                       R$   {str("%.2f" %nova_parcela).rjust(7)}''')
-        else:
-            print(f'''R$ {"%.2f" %novo_valor}      {"%.0f" %(juros*100)}%             {parcelas}                      R$   {str("%.2f" %nova_parcela).rjust(7)}''')
-        juros += 0.05
-        parcelas += 3
+    lista_cidades = []
+    lista_veiculos = []
+    lista_acidentes = []
+    media = []
+
+    maior_acidentes = 0
+    maior_cidade = ''
+    menor_acidentes = 1_000_000
+    menor_cidade = ''
+
+    soma = 0
+    media_veiculos = 0
+
+    lista_aux_media_acidentes_menos_150 = []
+    media_acidentes_menos_150 = 0
+
+    for i in range(len(cidades)):
+        lista_cidades.append(cidades[i][0])
+        lista_veiculos.append(cidades[i][1])
+        lista_acidentes.append(cidades[i][2])
+        media.append((lista_acidentes[i]/lista_veiculos[i])*1_000)
+
+    for i in range(len(lista_veiculos)):
+        soma += int(lista_veiculos[i])
+
+    media_veiculos = int(soma/len(lista_acidentes))
+
+    for i in range(len(cidades)):
+        if float(media[i]) > float(maior_acidentes):
+            maior_cidade = lista_cidades[i]
+            maior_acidentes = media[i]
+        if float(media[i]) < float(menor_acidentes):
+            menor_cidade = lista_cidades[i]
+            menor_acidentes = media[i]
+
+    for i in range(len(lista_veiculos)):
+        if lista_veiculos[i] <= 150_000:
+            aux = lista_acidentes[i]
+            lista_aux_media_acidentes_menos_150.append(aux)
+    
+    media_acidentes_menos_150 = (sum(lista_aux_media_acidentes_menos_150))/len(lista_aux_media_acidentes_menos_150)
+    
+    print(f'''O maior índice de acidentes é de {maior_cidade}, com {"%.1f" %maior_acidentes} acidentes por mil carros.
+O menor índice de acidentes é de {menor_cidade}, com {"%.1f" %menor_acidentes} acidentes por mil carros.
+O média de veículos por cidade é de {media_veiculos}.
+A média de acidentes total nas cidades com menos de 150 mil carros é de {media_acidentes_menos_150} acidentes.''')
+   
