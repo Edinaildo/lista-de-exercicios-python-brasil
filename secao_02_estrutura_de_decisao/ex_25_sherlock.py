@@ -11,25 +11,54 @@ Faça um programa que faça 5 perguntas para uma pessoa sobre um crime. As pergu
   "Já trabalhou com a vítima?"
 
 O programa deve no final emitir uma classificação sobre a participação da pessoa no crime.
-Se a pessoa responder positivamente a 2 questões ela deve ser classificada como "Suspeita",
+Se a pessoa responder positivamente a 2 questões ela deve ser classificada como "Suspeito",
 entre 3 e 4 como "Cúmplice" e 5 como "Assassino".
 Caso contrário, ele será classificado como "Inocente".
 
-    >>> investivar('Sim','Sim','Sim','Sim','Sim')
+    >>> investigar('Sim','Sim','Sim','Sim','Sim')
     'Assassino'
-    >>> investivar('Sim','Sim','Sim','Sim','Não')
+    >>> investigar('Sim','Sim','Sim','Sim','Não')
     'Cúmplice'
-    >>> investivar('Sim','Sim','Sim','Não','Não')
+    >>> investigar('Sim','Sim','Sim','Não','Não')
     'Cúmplice'
-    >>> investivar('Sim','Sim','Não','Não','Não')
+    >>> investigar('Sim','Sim','Não','Não','Não')
     'Suspeito'
-    >>> investivar('Sim','Não','Não','Não','Não')
+    >>> investigar('Sim','Não','Não','Não','Não')
     'Inocente'
-    >>> investivar('Não','Não','Não','Não','Não')
+    >>> investigar('Não','Não','Não','Não','Não')
     'Inocente'
 
 """
 
 
-def investivar(telefonou: str, estava_no_local: str, mora_perto: str, devia: str, trabalhou: str, ):
+
+from itertools import count
+
+
+def investigar(telefonou: str, estava_no_local: str, mora_perto: str, devia: str, trabalhou: str, ):
     """Escreva aqui em baixo a sua solução"""
+    count = 0
+    if telefonou == 'Sim':
+      count += 1
+    if estava_no_local == 'Sim':
+      count += 1
+    if mora_perto == 'Sim':
+      count += 1
+    if devia == 'Sim':
+      count += 1
+    if trabalhou == 'Sim':
+      count += 1
+    
+   
+    if count == 2:
+      print(f"'Suspeito'")
+    elif count == 3:
+      print(f"'Cúmplice'")
+    elif count == 4:
+      print(f"'Cúmplice'")
+    elif count == 5:
+      print(f"'Assassino'")
+    else:
+      print(f"'Inocente'")
+    
+    
